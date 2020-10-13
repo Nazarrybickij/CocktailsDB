@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_main"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.nazarrybickij.myapplication.fragments.HomeFragment"
+        android:label="home_fragment"
+        tools:layout="@layout/home_fragment" >
+        <action
+            android:id="@+id/action_homeFragment_to_allCocktailsFragment"
+            app:destination="@id/allCocktailsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_assistantFragment"
+            app:destination="@id/assistantFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_cocktailInfoFragment"
+            app:destination="@id/cocktailInfoFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_popularListFragment"
+            app:destination="@id/popularListFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/assistantFragment"
+        android:name="com.nazarrybickij.myapplication.fragments.AssistantFragment"
+        android:label="assistant_fragment"
+        tools:layout="@layout/assistant_fragment" >
+        <action
+            android:id="@+id/action_assistantFragment_to_allCocktailsFragment"
+            app:destination="@id/allCocktailsFragment" />
+        <action
+            android:id="@+id/action_assistantFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/allCocktailsFragment"
+        android:name="com.nazarrybickij.myapplication.fragments.AllCocktailsFragment"
+        android:label="all_cocktails_fragment"
+        tools:layout="@layout/all_cocktails_fragment" >
+        <action
+            android:id="@+id/action_allCocktailsFragment_to_assistantFragment"
+            app:destination="@id/assistantFragment" />
+        <action
+            android:id="@+id/action_allCocktailsFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_allCocktailsFragment_to_cocktailInfoFragment"
+            app:destination="@id/cocktailInfoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cocktailInfoFragment"
+        android:name="com.nazarrybickij.myapplication.fragments.CocktailInfoFragment"
+        android:label="cocktail_info_fragment"
+        tools:layout="@layout/cocktail_info_fragment" >
+        <argument
+            android:name="id"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <action
+            android:id="@+id/action_cocktailInfoFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_cocktailInfoFragment_to_allCocktailsFragment"
+            app:destination="@id/allCocktailsFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/search_dialog"
+        android:name="com.nazarrybickij.myapplication.fragments.SearchFragment"
+        tools:layout="@layout/search_fragment" >
+        <action
+            android:id="@+id/action_my_dialog_to_cocktailInfoFragment"
+            app:destination="@id/cocktailInfoFragment" />
+    </dialog>
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.nazarrybickij.myapplication.MainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main" />
+    <fragment
+        android:id="@+id/popularListFragment"
+        android:name="com.nazarrybickij.myapplication.fragments.PopularListFragment"
+        android:label="fragment_popular_list"
+        tools:layout="@layout/fragment_popular_list" >
+        <action
+            android:id="@+id/action_popularListFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_popularListFragment_to_cocktailInfoFragment"
+            app:destination="@id/cocktailInfoFragment" />
+    </fragment>
+</navigation>
