@@ -3,11 +3,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.AssistantFragment">
 
-    <TextView
+<androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/list_fav"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:listitem="@layout/item_cocktails" />
+    <LinearLayout
+        android:id="@+id/empty_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello" />
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="gone">
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            app:lottie_rawRes="@raw/favoritefolderlottie"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="false" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No Favorites Yet"/>
+    </LinearLayout>
 
 </FrameLayout>

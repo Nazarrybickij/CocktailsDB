@@ -47,12 +47,14 @@
         </LinearLayout>
 
         <ScrollView
+            android:id="@+id/scroll_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/top_bar">
+            app:layout_constraintTop_toBottomOf="@+id/top_bar"
+            android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -85,7 +87,9 @@
                     android:text="Ingredients"
                     android:textColor="#333333"
                     android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:letterSpacing="0.04"
+                    android:lineSpacingMultiplier="1.5"/>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -107,9 +111,11 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="10dp"
                     android:text="Instruction"
+                    android:layout_marginBottom="5dp"
                     android:textColor="#333333"
                     android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:lineSpacingMultiplier="1.5"/>
 
                 <TextView
                     android:id="@+id/instruction_view"
@@ -117,10 +123,25 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:text="Shake all ingredients (except lemon peel) with ice and strain into a cocktail glass. Top with the twist of lemon peel and serve."
-                    android:textColor="#333333"
-                    android:textSize="18sp" />
+                    android:textColor="#757575"
+                    android:textSize="18sp"
+                    android:lineSpacingMultiplier="1.2"
+                    android:letterSpacing="0.04"/>
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"/>
             </LinearLayout>
         </ScrollView>
+
+        <ProgressBar
+            android:id="@+id/progress_bar_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/top_bar"
+            android:visibility="gone"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

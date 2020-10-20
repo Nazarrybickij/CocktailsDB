@@ -59,13 +59,20 @@
     </LinearLayout>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="350dp"
+        android:gravity="center">
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/popular_3_item_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:nestedScrollingEnabled="false"
         tools:listitem="@layout/item_popular_list"
-        tools:itemCount="3"/>
+        tools:itemCount="3"
+        android:visibility="gone"/>
+        <ProgressBar
+            android:id="@+id/popular_progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"/>
     </RelativeLayout>
 </LinearLayout>

@@ -12,15 +12,17 @@
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/main_linear_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
             <androidx.appcompat.widget.SearchView
                 android:id="@+id/searchView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:iconifiedByDefault="false"
-                app:queryHint="Search cocktail..."
+                app:queryHint="Filter by name..."
                 android:focusable="true"
                 android:imeOptions="actionDone"
                 android:focusableInTouchMode="true"
@@ -32,8 +34,46 @@
                 android:layout_height="wrap_content"
                 android:background="#fefefe"
                 tools:listitem="@layout/item_cocktails" />
+            <LinearLayout
+                android:id="@+id/empty_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:visibility="gone">
+                <com.airbnb.lottie.LottieAnimationView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:lottie_rawRes="@raw/clouds"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="No Cocktails"/>
+            </LinearLayout>
         </LinearLayout>
 
+        <ProgressBar
+            android:id="@+id/progress_bar_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/empty_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No Results"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="gone"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"

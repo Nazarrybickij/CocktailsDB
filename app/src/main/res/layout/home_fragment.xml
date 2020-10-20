@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#FEFEFE"
     tools:context=".fragments.HomeFragment"
     android:orientation="vertical">
@@ -37,6 +38,33 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Category Of Drinks"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="15dp"
+                android:textColor="#333333"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/list_categories_drink"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:nestedScrollingEnabled="false"
+                android:paddingLeft="15dp"
+                tools:itemCount="10"
+                tools:listitem="@layout/item_categories_drink" />
+
+            <include
+                layout="@layout/include_latest_drinks_in_database"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical" />
+
         </LinearLayout>
     </ScrollView>
 

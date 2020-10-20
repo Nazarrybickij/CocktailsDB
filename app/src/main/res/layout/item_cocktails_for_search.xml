@@ -12,7 +12,6 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginStart="10dp"
-        android:src="@drawable/rhhwmp1493067619"
         android:layout_gravity="center"/>
     <LinearLayout
         android:layout_width="0dp"
