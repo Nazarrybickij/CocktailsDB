@@ -36,7 +36,7 @@
                     android:layout_height="20dp"
                     android:layout_gravity="bottom|center"
                     android:layout_marginBottom="25dp"
-                    android:text="Random"
+                    android:text="@string/random"
                     android:textStyle="bold"
                     android:textColor="@color/white"
                     android:textSize="18dp" />
@@ -61,7 +61,7 @@
                     android:layout_height="20dp"
                     android:layout_gravity="bottom|center"
                     android:layout_marginBottom="25dp"
-                    android:text="Non Alcoholic"
+                    android:text="@string/non_alcoholic"
                     android:textStyle="bold"
                     android:textColor="@color/white"
                     android:textSize="18dp" />
@@ -91,7 +91,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="20dp"
                         android:layout_gravity="bottom|center"
-                        android:text="Last Drink"
+                        android:text="@string/last_drink"
                         android:textStyle="bold"
                         android:textColor="@color/white"
                         android:textSize="18dp" />
@@ -100,7 +100,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="20dp"
                         android:layout_gravity="bottom|center"
-                        android:text="Your last drinks will be here"
+                        android:text="@string/your_last_drinks_will_be_here"
                         android:layout_marginBottom="5dp"
                         android:textColor="@color/white"
                         android:textStyle="bold|italic"

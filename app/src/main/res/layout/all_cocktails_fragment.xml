@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:visibility="gone">
+            android:visibility="visible">
             <androidx.appcompat.widget.SearchView
                 android:id="@+id/searchView"
                 android:layout_width="match_parent"
@@ -24,7 +24,7 @@
                 app:iconifiedByDefault="false"
                 app:queryHint="Filter by name..."
                 android:focusable="true"
-                android:imeOptions="actionDone"
+                android:imeOptions="actionDone|flagNoExtractUi|flagNoFullscreen"
                 android:focusableInTouchMode="true"
                 android:clickable="true"
                 android:singleLine="true"/>

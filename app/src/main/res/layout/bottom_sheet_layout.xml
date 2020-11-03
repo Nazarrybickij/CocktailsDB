@@ -70,7 +70,7 @@
             app:iconifiedByDefault="false"
             android:focusable="false"
             app:queryHint="Search ingredient..."
-            android:imeOptions="actionDone" />
+            android:imeOptions="actionDone|flagNoExtractUi|flagNoFullscreen" />
 
         <HorizontalScrollView
             android:layout_width="wrap_content"

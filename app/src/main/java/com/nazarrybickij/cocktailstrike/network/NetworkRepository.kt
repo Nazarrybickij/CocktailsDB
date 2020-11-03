@@ -9,6 +9,23 @@ import retrofit2.Response
 
 
 class NetworkRepository() {
+    fun loadIngredientDescByName(postLiveData: MutableLiveData<IngredientsDescription>, name: String) {
+        NetworkService.instance?.jSONApi?.getPostSearchIngredient(name)?.enqueue(object :
+            Callback<IngredientsDescription?> {
+            override fun onResponse(
+                call: Call<IngredientsDescription?>,
+                response: Response<IngredientsDescription?>
+            ) {
+                val post = response.body()
+                postLiveData.value = post
+            }
+
+            override fun onFailure(call: Call<IngredientsDescription?>, t: Throwable) {
+                Log.e("Network Error", t.localizedMessage!!)
+            }
+        })
+    }
+
     fun loadLatestDrinks(postLiveData: MutableLiveData<DrinkInfoList>) {
         NetworkService.instance?.jSONApi?.getLatestDrinksPost()?.enqueue(object :
             Callback<DrinkInfoList?> {
@@ -18,15 +35,19 @@ class NetworkRepository() {
             ) {
                 val post = response.body()
                 if (postLiveData.value != post) {
-                    postLiveData.value = post }
+                    postLiveData.value = post
+                }
             }
 
             override fun onFailure(call: Call<DrinkInfoList?>, t: Throwable) {
-                call.clone()
             }
         })
     }
-    fun loadListCocktailsByCategory(postLiveData: MutableLiveData<ListCocktails>,category: String) {
+
+    fun loadListCocktailsByCategory(
+        postLiveData: MutableLiveData<ListCocktails>,
+        category: String
+    ) {
         NetworkService.instance?.jSONApi?.getPostByCategory(category)?.enqueue(object :
             Callback<ListCocktails?> {
             override fun onResponse(
@@ -185,11 +206,12 @@ class NetworkRepository() {
                             call: Call<ListCocktails?>,
                             response: Response<ListCocktails?>
                         ) {
-                            var mutlist1 = listCocktails?.drinks as MutableList
-                            var mutlist2 = response.body()?.drinks as MutableList
-                            mutlist1.addAll(mutlist2)
-                            postLiveData.value = ListCocktails(mutlist1)
-
+                            if (listCocktails?.drinks != null){
+                                var mutlist1 = listCocktails?.drinks as MutableList
+                                var mutlist2 = response.body()?.drinks as MutableList
+                                mutlist1.addAll(mutlist2)
+                                postLiveData.value = ListCocktails(mutlist1)
+                            }
                         }
 
                         override fun onFailure(call: Call<ListCocktails?>, t: Throwable) {
@@ -205,15 +227,15 @@ class NetworkRepository() {
     }
 
     fun loadCocktailsByFilter(postLiveData: MutableLiveData<ListCocktails>, filter: FilterEntity) {
-        if (filter.ingredients != ""){
+        if (filter.ingredients != "") {
             loadListCocktailsByIngredients(postLiveData, filter.ingredients)
             return
         }
-        if (filter.alco != ""){
+        if (filter.alco != "") {
             loadListCocktailsByAlco(postLiveData, filter.alco)
             return
         }
-        if (filter.category != ""){
+        if (filter.category != "") {
             loadListCocktailsByCategory(postLiveData, filter.category)
             return
         }

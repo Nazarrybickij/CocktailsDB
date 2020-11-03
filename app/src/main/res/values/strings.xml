@@ -4,4 +4,26 @@
     <string name="apply">Apply</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="help_measure">1 oz = 30 mL \n 1 cL = 10 mL \n tsp = tea spoon \n tbsp =  tablespoonful \n Dash = 1/8 of a teaspoon \n 1 inch = 2.5 cm \n 1 shot = 45 ml \n 1 pint = 473 mL</string>
+    <string name="vodka_description">Vodka is a distilled a es,nd, Iceriver, Greyhound.</string>
+    <string name="admob_app_id">ca-app-pub-2931021128905879~4923255124</string>
+    <string name="interstitial_ads_id">ca-app-pub-2931021128905879/6099539767</string>
+    <!-- test interstitial   ca-app-pub-3940256099942544/1033173712-->
+    <!-- interstitial   ca-app-pub-2931021128905879/6099539767-->
+    <string name="native_ads_id">ca-app-pub-2931021128905879/4497725624</string>
+    <!-- test native   ca-app-pub-3940256099942544/2247696110-->
+    <!-- native   ca-app-pub-2931021128905879/4497725624-->
+    <string name="popular">Popular</string>
+    <string name="under_popular">Let’s choose, and enjoy</string>
+    <string name="category_of_drinks">Category Of Drinks</string>
+    <string name="random">Random</string>
+    <string name="non_alcoholic">Non Alcoholic</string>
+    <string name="last_drink">Last Drink</string>
+    <string name="home_frag_title">What do you want to drink today?</string>
+    <string name="all_cocktail_frag_title">Drinks</string>
+    <string name="assistant_frag_title">My Favourite</string>
+    <string name="your_last_drinks_will_be_here">Your last drinks will be here</string>
+    <string name="no_favorites_yet">No Favorites Yet</string>
+    <string name="see_more">See more...</string>
+
 </resources>

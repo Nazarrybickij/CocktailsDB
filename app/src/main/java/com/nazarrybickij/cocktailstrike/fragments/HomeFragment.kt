@@ -11,6 +11,8 @@ import androidx.cardview.widget.CardView
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.nazarrybickij.cocktailstrike.App
+import com.nazarrybickij.cocktailstrike.ControllerAds
 import com.nazarrybickij.cocktailstrike.viewmodels.HomeViewModel
 import com.nazarrybickij.cocktailstrike.R
 import com.nazarrybickij.cocktailstrike.adapters.CategoriesDrinkAdapter
@@ -50,17 +52,25 @@ class HomeFragment : Fragment() {
         retainInstance = true
         try {
             val topTitle = activity?.findViewById<TextView>(R.id.top_title)!!
-            topTitle.text = "What do you want to drink today?"
+            topTitle.text = App.getResources.getString(R.string.home_frag_title)
             val topBar = activity?.findViewById<LinearLayout>(R.id.top_bar)!!
             topBar.visibility = LinearLayout.VISIBLE
         }catch (e:Exception){
         }
+
         lastDrink = lastDrinkSP.getLastDrink()
         return inflater.inflate(R.layout.home_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if (ControllerAds.show){
+            val controllerInterstitialAd = ControllerAds.getInstance().getMInterstitialAd()
+            if (controllerInterstitialAd.isLoaded){
+                controllerInterstitialAd.show()
+                ControllerAds.show = false
+            }
+        }
         val popularListCallback = object :
             CocktailsFullinfoAdapter.AdapterCallback {
             override fun onCocktailClick(id: String) {

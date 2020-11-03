@@ -1,8 +1,6 @@
 package com.nazarrybickij.cocktailstrike.network
 
-import com.chuckerteam.chucker.api.ChuckerInterceptor
-import com.nazarrybickij.cocktailstrike.App
-import okhttp3.OkHttpClient
+
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -58,14 +56,9 @@ class NetworkService private constructor() {
     }
 
     init {
-        val okHttpClient = OkHttpClient.Builder()
-            .addInterceptor(ChuckerInterceptor(App.context.applicationContext))
-            .build()
-
         mRetrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
-            .client(okHttpClient)
             .build()
     }
 

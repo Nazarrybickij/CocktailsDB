@@ -1,19 +1,27 @@
 package com.nazarrybickij.cocktailstrike.viewmodels
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.nazarrybickij.cocktailstrike.SingleLiveEvent
 import com.nazarrybickij.cocktailstrike.entity.DrinkInfoList
 import com.nazarrybickij.cocktailstrike.entity.DrinkX
 import com.nazarrybickij.cocktailstrike.entity.IngredientEntity
+import com.nazarrybickij.cocktailstrike.entity.IngredientsDescription
 import com.nazarrybickij.cocktailstrike.network.NetworkRepository
 
 class CocktailInfoViewModel : ViewModel() {
     private val liveDataCocktails = SingleLiveEvent<DrinkInfoList>()
+    private val liveDataIngredientDesc = MutableLiveData<IngredientsDescription>()
     private val networkRepository = NetworkRepository()
 
     fun getLiveDataCocktails() = liveDataCocktails
-    fun getCocktailsById(id: Int) {
+    fun loadCocktailsById(id: Int) {
         networkRepository.loadCocktails(id, liveDataCocktails)
+    }
+
+    fun getLiveDataIngredientDesc() = liveDataIngredientDesc
+    fun loadIngredientByName(s: String) {
+        networkRepository.loadIngredientDescByName(liveDataIngredientDesc,s)
     }
 
     companion object {

@@ -13,8 +13,8 @@ class App : Application() {
         database = Room.databaseBuilder<AppRoomDB>(this, AppRoomDB::class.java, "database")
             .allowMainThreadQueries()
             .build()
+        ControllerAds.getInstance()
     }
-
     companion object {
         lateinit var database:AppRoomDB
         lateinit var context:App

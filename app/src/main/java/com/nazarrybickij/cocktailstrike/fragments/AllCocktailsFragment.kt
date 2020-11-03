@@ -14,6 +14,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.nazarrybickij.cocktailstrike.App
+import com.nazarrybickij.cocktailstrike.ControllerAds
 import com.nazarrybickij.cocktailstrike.R
 import com.nazarrybickij.cocktailstrike.adapters.CocktailsAdapter
 import com.nazarrybickij.cocktailstrike.db.DBRepository
@@ -32,7 +34,7 @@ class AllCocktailsFragment : Fragment() {
     private lateinit var filterBottomSheetFragment: FilterBottomSheetFragment
     private lateinit var searchView: SearchView
     private lateinit var viewModel: AllCocktailsViewModel
-    private var filterEntity:FilterEntity? = null
+    private var filterEntity: FilterEntity? = null
 
     companion object {
         fun newInstance() = AllCocktailsFragment()
@@ -47,22 +49,27 @@ class AllCocktailsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val i =  inflater.inflate(R.layout.all_cocktails_fragment, container, false)
+        val i = inflater.inflate(R.layout.all_cocktails_fragment, container, false)
         viewModel = ViewModelProvider(requireActivity()).get(AllCocktailsViewModel::class.java)
         try {
             val topTitle = activity?.findViewById<TextView>(R.id.top_title)!!
-            topTitle.text = "Drinks"
+            topTitle.text = App.getResources.getString(R.string.all_cocktail_frag_title)
             val topBar = activity?.findViewById<LinearLayout>(R.id.top_bar)!!
             topBar.visibility = LinearLayout.VISIBLE
-        }catch (e: Exception){}
+        } catch (e: Exception) {
+        }
         try {
             filterEntity = arguments?.getParcelable<FilterEntity>("filter")!!
             viewModel.mainFilter = filterEntity as FilterEntity
-            if (viewModel.selectedList.isNotEmpty()){
-                viewModel.selectedList = ArrayList<String>()
-            }
-        }catch (e:Exception){}
-        if (viewModel.lastDrinks.isEmpty() || filterEntity != null){
+            if (filterEntity!!.ingredients.isNotEmpty()) {
+                val selList = ArrayList<String>()
+                selList.add(filterEntity!!.ingredients)
+                viewModel.selectedList = selList
+            }else{viewModel.selectedList = ArrayList<String>()}
+
+        } catch (e: Exception) {
+        }
+        if (viewModel.lastDrinks.isEmpty() || filterEntity != null) {
             viewModel.loadListCocktails()
             viewModel.loadIngredientsList()
             i.progress_bar_view.visibility = LinearLayout.VISIBLE
@@ -79,6 +86,13 @@ class AllCocktailsFragment : Fragment() {
         viewManager = LinearLayoutManager(activity)
         recyclerView.layoutManager = viewManager
         drinks = viewModel.lastDrinks
+        if (ControllerAds.show){
+            val controllerInterstitialAd = ControllerAds.getInstance().getMInterstitialAd()
+            if (controllerInterstitialAd.isLoaded){
+                controllerInterstitialAd.show()
+                ControllerAds.show = false
+            }
+        }
         callbackCocktailsAdapter = object :
             CocktailsAdapter.AdapterCallback {
             override fun onCocktailClick(id: String) {
@@ -92,15 +106,16 @@ class AllCocktailsFragment : Fragment() {
                 } catch (e: Exception) {
                 }
             }
+
             override fun onFavClick(drink: Drink) {
                 val dbRepository = DBRepository.getInstance()
                 dbRepository.insertOrDelete(drink)
                 viewAdapter.notifyDataSetChanged()
             }
         }
-        if (drinks!!.isEmpty()){
+        if (drinks!!.isEmpty()) {
             viewAdapter = CocktailsAdapter()
-        }else{
+        } else {
             viewAdapter = viewModel.cocktailsAdapter
             recyclerView.adapter = viewAdapter
             recyclerView.scrollToPosition(viewModel.lastposition)
@@ -118,11 +133,11 @@ class AllCocktailsFragment : Fragment() {
                 searchView.setQuery("", true)
                 searchView.clearFocus()
             }
-            if (drinks!!.isEmpty()){
+            if (drinks!!.isEmpty()) {
                 view.empty_text_view.visibility = LinearLayout.VISIBLE
                 view.empty_text_view.text = "No Result"
-            }else{
-                    view.empty_text_view.visibility = LinearLayout.GONE
+            } else {
+                view.empty_text_view.visibility = LinearLayout.GONE
             }
             view.main_linear_view.visibility = LinearLayout.VISIBLE
             view.progress_bar_view.visibility = LinearLayout.GONE
@@ -146,6 +161,7 @@ class AllCocktailsFragment : Fragment() {
         })
 
     }
+
     override fun onPause() {
         super.onPause()
         try {
@@ -153,7 +169,8 @@ class AllCocktailsFragment : Fragment() {
             viewModel.lastposition = layoutManager.findFirstVisibleItemPosition()
             viewModel.cocktailsAdapter = viewAdapter
             viewModel.lastDrinks = drinks!!
-        }catch (e: Exception){}
+        } catch (e: Exception) {
+        }
     }
 
 }

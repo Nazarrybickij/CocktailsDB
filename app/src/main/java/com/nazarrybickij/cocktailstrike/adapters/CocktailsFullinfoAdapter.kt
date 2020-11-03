@@ -1,9 +1,15 @@
 package com.nazarrybickij.cocktailstrike.adapters
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.ads.nativetemplates.NativeTemplateStyle
+import com.google.android.ads.nativetemplates.TemplateView
+import com.google.android.gms.ads.AdLoader
+import com.google.android.gms.ads.AdRequest
+import com.nazarrybickij.cocktailstrike.App
 import com.nazarrybickij.cocktailstrike.R
 import com.nazarrybickij.cocktailstrike.db.DBRepository
 import com.nazarrybickij.cocktailstrike.entity.Drink
@@ -15,31 +21,65 @@ import kotlinx.android.synthetic.main.item_popular_list.view.*
 import kotlinx.android.synthetic.main.item_popular_list.view.fav_in_item
 
 class CocktailsFullinfoAdapter(
-) : RecyclerView.Adapter<CocktailsFullinfoAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var values = mutableListOf<DrinkX>()
     var callback: AdapterCallback? = null
+    val AD_TYPE = 1
+    val CONTENT_TYPE = 0
+    lateinit var context: Context
     interface AdapterCallback {
         fun onCocktailClick(id:String)
         fun onFavClick(drink: Drink)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.onBind(position)
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        if (getItemViewType(position) == CONTENT_TYPE) {
+            (holder as CocktailsFullinfoAdapter.ViewHolder).onBind(position)
+        }
 
     }
 
     override fun getItemCount() = values.size
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val itemView = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_popular_list, parent, false)
-
-        return ViewHolder(
-            itemView
-        )
+    override fun getItemViewType(position: Int): Int {
+        val spaceBetweenAds = 6
+        return if (position % (spaceBetweenAds + 1) == spaceBetweenAds) {
+            AD_TYPE
+        } else {
+            CONTENT_TYPE
+        }
     }
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val itemView = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_popular_list, parent, false)
+        val itemAdsView = LayoutInflater.from(parent.context).inflate(
+            R.layout.native_ad_in_list,
+            parent,
+            false
+        )
+        context = parent.context
+        if (viewType == AD_TYPE) {
+            return AdViewHolder(itemAdsView)
+        } else {
+            return ViewHolder(itemView)
+        }
 
+    }
+
+    inner class AdViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        var adtemplate: TemplateView? = null
+        init {
+            adtemplate = itemView.findViewById(R.id.my_template)
+            val adLoader: AdLoader =
+                AdLoader.Builder(App.context, App.getResources.getString(R.string.native_ads_id))
+                    .forUnifiedNativeAd { unifiedNativeAd ->
+                        adtemplate!!.setStyles(NativeTemplateStyle.Builder().build())
+                        adtemplate!!.setNativeAd(unifiedNativeAd)
+                    }.build()
+            adLoader.loadAd(AdRequest.Builder().build())
+        }
+
+    }
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         init {
             itemView.setOnClickListener(this)
@@ -55,14 +95,13 @@ class CocktailsFullinfoAdapter(
             itemView.name_cocktail.text = values[position].strDrink
             itemView.alco_under_title_view.text = values[position].strAlcoholic
             itemView.category_under_title_view.text = values[position].strCategory
-            var listIngredientsEntity = convertDrinkInfoInIngredientList(values[position])
+            val listIngredientsEntity = convertDrinkInfoInIngredientList(values[position])
             var listIngredients = mutableListOf<String>()
             for (i in listIngredientsEntity){
                 listIngredients.add(i.name)
             }
             itemView.ingredient_list_text_view.text = listIngredients.joinToString()
         }
-
         override fun onClick(v: View?) {
             if (callback != null){
                 when(v){
@@ -72,7 +111,6 @@ class CocktailsFullinfoAdapter(
 
             }
         }
-
     }
     fun convertDrinkXToDrink(drinkX: DrinkX): Drink {
         return Drink(drinkX.idDrink,drinkX.strDrink,drinkX.strDrinkThumb)

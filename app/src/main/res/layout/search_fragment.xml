@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:focusable="true"
-            android:imeOptions="normal"
+            android:imeOptions="normal|flagNoExtractUi|flagNoFullscreen"
             app:commitIcon="@drawable/back_icon"
             app:iconifiedByDefault="false"
             app:layout_constraintStart_toStartOf="parent"

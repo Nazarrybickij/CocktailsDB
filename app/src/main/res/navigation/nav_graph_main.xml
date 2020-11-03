@@ -72,6 +72,9 @@
         <action
             android:id="@+id/action_cocktailInfoFragment_to_allCocktailsFragment"
             app:destination="@id/allCocktailsFragment" />
+        <action
+            android:id="@+id/action_cocktailInfoFragment_to_ingredientsDescBSFragment"
+            app:destination="@id/ingredientsDescBSFragment" />
     </fragment>
     <dialog
         android:id="@+id/search_dialog"
@@ -98,4 +101,12 @@
             android:id="@+id/action_popularListFragment_to_cocktailInfoFragment"
             app:destination="@id/cocktailInfoFragment" />
     </fragment>
+    <dialog
+        android:id="@+id/ingredientsDescBSFragment"
+        android:name="com.nazarrybickij.cocktailstrike.fragments.IngredientsDescBSFragment"
+        android:label="IngredientsDescBSFragment" >
+        <action
+            android:id="@+id/action_ingredientsDescBSFragment_to_allCocktailsFragment"
+            app:destination="@id/allCocktailsFragment" />
+    </dialog>
 </navigation>

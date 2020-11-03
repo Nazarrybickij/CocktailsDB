@@ -10,6 +10,8 @@ import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.nazarrybickij.cocktailstrike.App
+import com.nazarrybickij.cocktailstrike.ControllerAds
 import com.nazarrybickij.cocktailstrike.viewmodels.AssistantViewModel
 import com.nazarrybickij.cocktailstrike.R
 import com.nazarrybickij.cocktailstrike.adapters.CocktailsAdapter
@@ -19,6 +21,7 @@ import kotlinx.android.synthetic.main.assistant_fragment.view.*
 
 class AssistantFragment : Fragment() {
     private var viewAdapter = CocktailsAdapter()
+    private lateinit var viewModel: AssistantViewModel
     private lateinit var callbackCocktailsAdapter: CocktailsAdapter.AdapterCallback
     lateinit var db:DBRepository
 
@@ -26,15 +29,13 @@ class AssistantFragment : Fragment() {
         fun newInstance() = AssistantFragment()
     }
 
-    private lateinit var viewModel: AssistantViewModel
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         try {
             val topTitle = activity?.findViewById<TextView>(R.id.top_title)!!
-            topTitle.text = "My Favourite"
+            topTitle.text = App.getResources.getString(R.string.assistant_frag_title)
             val topBar = activity?.findViewById<LinearLayout>(R.id.top_bar)!!
             topBar.visibility = LinearLayout.VISIBLE
         }catch (e: Exception){}
@@ -44,6 +45,13 @@ class AssistantFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         db = DBRepository.getInstance()
+        if (ControllerAds.show){
+            val controllerInterstitialAd = ControllerAds.getInstance().getMInterstitialAd()
+            if (controllerInterstitialAd.isLoaded){
+                controllerInterstitialAd.show()
+                ControllerAds.show = false
+            }
+        }
         callbackCocktailsAdapter = object :
             CocktailsAdapter.AdapterCallback {
             override fun onCocktailClick(id: String) {

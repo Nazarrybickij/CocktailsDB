@@ -12,14 +12,13 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_ingredient.view.*
 
 class IngredientAdapter(
-    private val values: MutableList<IngredientEntity>
-//    ,
-//    private val callback: CocktailsAdapter.AdapterCallback?
+    private val values: MutableList<IngredientEntity>,
+    private val callback: IngredientAdapter.AdapterCallback?
 ) :
     RecyclerView.Adapter<IngredientAdapter.ViewHolder>() {
 
     interface AdapterCallback {
-        fun onIngredientsClick()
+        fun onIngredientsClick(ingredient:String)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -39,30 +38,30 @@ class IngredientAdapter(
     }
 
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
-//        ,
-//        View.OnClickListener
-    {
-        //        init {
-//            itemView.setOnClickListener(this)
-//        }
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
+        View.OnClickListener {
+        init {
+            itemView.setOnClickListener(this)
+        }
+
         fun onBind(position: Int) {
             var name = values[position].name
             itemView.ingredient_name_in_item.text = name
             itemView.measure_in_item.text = values[position].measure
             var nameforimage = name.replace("ä", "a")
             Picasso.with(itemView.context)
-                .load(COCKTAIL_INGREDIENTS_URL+ nameforimage + COCKTAIL_INGREDIENT_PNG_SMALL).fit().centerCrop()
+                .load(COCKTAIL_INGREDIENTS_URL + nameforimage + COCKTAIL_INGREDIENT_PNG_SMALL).fit()
+                .centerCrop()
                 .error(R.drawable.error_ingredient_image)
                 .into(itemView.image_ingredient)
 
         }
 
-//        override fun onClick(v: View?) {
-//            callback?.onGroupClick(
-//
-//            )
-//        }
+        override fun onClick(v: View?) {
+            callback?.onIngredientsClick(
+                values[layoutPosition].name
+            )
+        }
 
     }
 }

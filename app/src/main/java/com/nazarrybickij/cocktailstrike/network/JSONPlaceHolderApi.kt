@@ -1,6 +1,7 @@
 package com.nazarrybickij.cocktailstrike.network
 
 import com.nazarrybickij.cocktailstrike.entity.DrinkInfoList
+import com.nazarrybickij.cocktailstrike.entity.IngredientsDescription
 import com.nazarrybickij.cocktailstrike.entity.IngredientsList
 import com.nazarrybickij.cocktailstrike.entity.ListCocktails
 import retrofit2.Call
@@ -26,7 +27,7 @@ interface JSONPlaceHolderApi {
     @GET("search.php")
     fun getPostSearchCocktail(@Query("s") s:String): Call<DrinkInfoList?>?
     @GET("search.php")
-    fun getPostSearchIngredient(@Query("i") i:String): Call<DrinkInfoList?>?
+    fun getPostSearchIngredient(@Query("i") i:String): Call<IngredientsDescription?>?
     @GET("latest.php")
     fun getLatestDrinksPost(): Call<DrinkInfoList?>?
 
